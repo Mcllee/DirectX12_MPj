@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\leemc\Desktop\LabProject(Software Renderer)\x64\Release\MiddleProject.exe</FullPath>
+      <FullPath>C:\Users\leemc\source\repos\DirectX12_MPj\x64\Release\MiddleProject.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
