@@ -14,7 +14,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildFrameBuffer(); 
 
-	BuildObjects(); 
+	BuildObjects();
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -65,7 +65,7 @@ void CGameFramework::BuildObjects()
 {
 	CCamera* pCamera = new CCamera();
 	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-	pCamera->GeneratePerspectiveProjectionMatrix(1.01f, 500.0f, 60.0f);
+	pCamera->GeneratePerspectiveProjectionMatrix(0.0f, 500.0f, 60.0f);
 	pCamera->SetFOVAngle(60.0f);
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
@@ -74,8 +74,12 @@ void CGameFramework::BuildObjects()
 
 	m_pPlayer = new CAirplanePlayer();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pPlayer->SetMesh(pAirplaneMesh);
-	m_pPlayer->SetColor(RGB(0, 0, 255));
+
+
+	// 카메라만 사용할 것이므로 주인공 메쉬는 주석처리 한다. -> 롤러코스터에서 필요시 사용
+	/*m_pPlayer->SetMesh(pAirplaneMesh);
+	m_pPlayer->SetColor(RGB(0, 0, 0));*/
+	
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
@@ -96,6 +100,9 @@ void CGameFramework::ReleaseObjects()
 
 void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
+	// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
+	// return;
+
 	if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
 
 	switch (nMessageID)
@@ -104,7 +111,9 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 	case WM_LBUTTONDOWN:
 		::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
-		if (nMessageID == WM_RBUTTONDOWN) m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
+
+		// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
+		// if (nMessageID == WM_RBUTTONDOWN) m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
 		break;
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
@@ -119,6 +128,9 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
+	// 카메라 이동
+	// return;
+
 	if (m_pScene) m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 
 	switch (nMessageID)
@@ -127,13 +139,9 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		switch (wParam)
 		{
 		case VK_ESCAPE:
-			::PostQuitMessage(0);
+			::PostQuitMessage(0);	// 프로그램 종료 메시지 전달
 			break;
 		case VK_RETURN:
-			break;
-		case VK_CONTROL:
-			((CAirplanePlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
-			m_pLockedObject = NULL;
 			break;
 		default:
 			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
@@ -171,21 +179,41 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 		break;
 	}
+
+	/*
+	case WM_SIZE:
+		break;
+	case WM_LBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONUP:
+	case WM_MOUSEMOVE:
+		OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
+		break;
+	case WM_KEYDOWN:
+	case WM_KEYUP:
+		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
+		break;
+	}
+	*/
+
 	return(0);
 }
 
 void CGameFramework::ProcessInput()
 {
+	// 키 입력 받기
+
 	static UCHAR pKeyBuffer[256];
 	if (GetKeyboardState(pKeyBuffer))
 	{
 		DWORD dwDirection = 0;
-		if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
-		if (pKeyBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
-		if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
-		if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
-		if (pKeyBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
-		if (pKeyBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
+		if (pKeyBuffer['W'] & 0xF0) dwDirection |= DIR_FORWARD;
+		if (pKeyBuffer['S'] & 0xF0) dwDirection |= DIR_BACKWARD;
+		if (pKeyBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
+		if (pKeyBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
+		if (pKeyBuffer['E'] & 0xF0) dwDirection |= DIR_UP;
+		if (pKeyBuffer['Q'] & 0xF0) dwDirection |= DIR_DOWN;
 
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
 	}

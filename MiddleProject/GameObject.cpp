@@ -113,9 +113,27 @@ void CGameObject::Rotate(XMFLOAT3& xmf3RotationAxis, float fAngle)
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
 
+void CGameObject::Rotate(float fx, float fy, float fz, float Angle)
+{
+	float degree = DegreeToRadian(Angle);
+
+	XMFLOAT4X4 rotate = {
+			(float)(cos(degree)),		0,		(float)(-sin(degree)),	0,
+			0,							1,		0,						0,
+			(float)(sin(degree)),		0,		(float)(cos(degree)),	0,
+			0,							0,		0,						1
+	};
+	m_xmf4x4World = Matrix4x4::Multiply(m_xmf4x4World, rotate);
+}
+
 void CGameObject::Move(XMFLOAT3& vDirection, float fSpeed)
 {
 	SetPosition(m_xmf4x4World._41 + vDirection.x * fSpeed, m_xmf4x4World._42 + vDirection.y * fSpeed, m_xmf4x4World._43 + vDirection.z * fSpeed);
+}
+
+void CGameObject::Move(XMFLOAT3& vDirection)
+{
+	SetPosition(m_xmf4x4World._41 + vDirection.x, m_xmf4x4World._42 + vDirection.y, m_xmf4x4World._43 + vDirection.z);
 }
 
 void CGameObject::LookTo(XMFLOAT3& xmf3LookTo, XMFLOAT3& xmf3Up)
