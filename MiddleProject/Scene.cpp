@@ -37,40 +37,81 @@ void CScene::BuildObjects()
 	m_nObjects = 4*3;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	for (int i = 0; i < m_nObjects / 4; ++i) {
+	//for (int i = 0; i < m_nObjects / 4; ++i) {
 
+	//	m_ppObjects[0 + i * 4] = new CExplosiveObject();						// 기본 생성자
+	//	m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.6f, 5.0f));		// 박스의 크기 설정
+	//	m_ppObjects[0 + i * 4]->SetColor(RGB(0, 255, 0));						// 색상 결정
+
+	//	XMFLOAT3 default_position_1 = { -2.0f, 0.0f, 0.0f + i * 6 };
+	//	m_ppObjects[0 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 45.0f * i);
+	//	m_ppObjects[0 + i * 4]->Move(default_position_1);
+
+	//	m_ppObjects[1 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.6f, 5.0f));
+	//	m_ppObjects[1 + i * 4]->SetColor(RGB(0, 255, 100));
+
+	//	XMFLOAT3 default_position_2 = { 2.0f, 0.0f, 0.0f + i * 6 };
+	//	m_ppObjects[1 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 45.0f * i);
+	//	m_ppObjects[1 + i * 4]->Move(default_position_2);
+
+
+	//	m_ppObjects[2 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(6.0f, 0.6f, 0.8f));
+	//	m_ppObjects[2 + i * 4]->SetColor(RGB(0, 255, 100));
+
+	//	XMFLOAT3 default_position_3 = { 0.0f, 0.0f, -1.0f + i * 6 };
+	//	m_ppObjects[2 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 45.0f * i);
+	//	m_ppObjects[2 + i * 4]->Move(default_position_3);
+
+	//	m_ppObjects[3 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(6.0f, 0.6f, 0.8f));
+	//	m_ppObjects[3 + i * 4]->SetColor(RGB(0, 255, 100));
+
+	//	XMFLOAT3 default_position_4 = { 0.0f, 0.0f, 1.0f + i * 6 };
+	//	m_ppObjects[3 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 45.0f * i);
+	//	m_ppObjects[3 + i * 4]->Move(default_position_4);
+	//}
+
+	for (int i = 0; i < m_nObjects / 4; ++i) {
 		m_ppObjects[0 + i * 4] = new CExplosiveObject();						// 기본 생성자
-		m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.6f, 5.0f));		// 박스의 크기 설정
+		m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
 		m_ppObjects[0 + i * 4]->SetColor(RGB(0, 255, 0));						// 색상 결정
 
-		XMFLOAT3 default_position_1 = { -2.0f, 0.0f, 0.0f + i * 6 };
-		m_ppObjects[0 + i * 4]->Move(default_position_1);
-		m_ppObjects[0 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 15.0f * i);
-
 		m_ppObjects[1 + i * 4] = new CExplosiveObject();
-		m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.6f, 5.0f));
+		m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
 		m_ppObjects[1 + i * 4]->SetColor(RGB(0, 255, 100));
 
-		XMFLOAT3 default_position_2 = { 2.0f, 0.0f, 0.0f + i * 6 };
-		m_ppObjects[1 + i * 4]->Move(default_position_2);
-		m_ppObjects[1 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 15.0f * i);
-
-
 		m_ppObjects[2 + i * 4] = new CExplosiveObject();
-		m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(6.0f, 0.6f, 0.8f));
+		m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.1f, 0.1f));
 		m_ppObjects[2 + i * 4]->SetColor(RGB(0, 255, 100));
 
-		XMFLOAT3 default_position_3 = { 0.0f, 0.0f, -1.0f + i * 6 };
-		m_ppObjects[2 + i * 4]->Move(default_position_3);
-		m_ppObjects[2 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 15.0f * i);
-
 		m_ppObjects[3 + i * 4] = new CExplosiveObject();
-		m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(6.0f, 0.6f, 0.8f));
+		m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.1f, 0.1f));
 		m_ppObjects[3 + i * 4]->SetColor(RGB(0, 255, 100));
+	}
 
-		XMFLOAT3 default_position_4 = { 0.0f, 0.0f, 1.0f + i * 6 };
-		m_ppObjects[3 + i * 4]->Move(default_position_4);
-		m_ppObjects[3 + i * 4]->Rotate(0.0f, 1.0f, 0.0f, 15.0f * i);
+	XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+	for (int i = 0; i < m_nObjects / 4; ++i) {
+		m_ppObjects[0 + i * 4]->Move(6.0f, 0.0f, 0.0f);
+		m_ppObjects[0 + i * 4]->Rotate(fy, 8.0f * i);
+		m_ppObjects[0 + i * 4]->Move(-6.0f, 0.0f, 0);
+		m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
+
+		m_ppObjects[1 + i * 4]->Move(6.0f, 0.0f, 0.0f);
+		m_ppObjects[1 + i * 4]->Rotate(fy, 8.0f * i);
+		m_ppObjects[1 + i * 4]->Move(-6.0f, 0.0f, 0);
+		m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
+
+		m_ppObjects[2 + i * 4]->Move(6.0f, 0.0f, 0.0f);
+		m_ppObjects[2 + i * 4]->Rotate(fy, 8.0f * i);
+		m_ppObjects[2 + i * 4]->Move(-6.0f, 0.0f, 0);
+		m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
+
+		m_ppObjects[3 + i * 4]->Move(6.0f, 0.0f, 0.0f);
+		m_ppObjects[3 + i * 4]->Rotate(fy, 8.0f * i);
+		m_ppObjects[3 + i * 4]->Move(-6.0f, 0.0f, 0);
+		m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
 	}
 
 #ifdef _WITH_DRAW_AXIS
