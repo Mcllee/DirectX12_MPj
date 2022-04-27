@@ -54,9 +54,6 @@ public:
 
 	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
 	void Rotate(XMFLOAT3& xmf3Axis, float fAngle);
-	// void Rotate(float fx = 0.0f, float fy = 0.0f, float fz = 0.0f, float Angle = 0.0f);
-
-	void scale_X(XMFLOAT3& xmf3Axis, float size);
 
 
 	XMFLOAT3 GetPosition();
