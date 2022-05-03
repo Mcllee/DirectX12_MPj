@@ -15,70 +15,73 @@ void CScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-
 	float fHalfWidth = 45.0f, fHalfHeight = 45.0f, fHalfDepth = 200.0f;
 	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
 
 	m_pWallsObject = new CWallsObject();
-	/*m_pWallsObject->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pWallsObject->SetMesh(pWallCubeMesh);
-	m_pWallsObject->SetColor(RGB(0, 0, 0));
-	m_pWallsObject->m_pxmf4WallPlanes[0] = XMFLOAT4(+1.0f, 0.0f, 0.0f, fHalfWidth);
-	m_pWallsObject->m_pxmf4WallPlanes[1] = XMFLOAT4(-1.0f, 0.0f, 0.0f, fHalfWidth);
-	m_pWallsObject->m_pxmf4WallPlanes[2] = XMFLOAT4(0.0f, +1.0f, 0.0f, fHalfHeight);
-	m_pWallsObject->m_pxmf4WallPlanes[3] = XMFLOAT4(0.0f, -1.0f, 0.0f, fHalfHeight);
-	m_pWallsObject->m_pxmf4WallPlanes[4] = XMFLOAT4(0.0f, 0.0f, +1.0f, fHalfDepth);
-	m_pWallsObject->m_pxmf4WallPlanes[5] = XMFLOAT4(0.0f, 0.0f, -1.0f, fHalfDepth);
-	m_pWallsObject->m_xmOOBBPlayerMoveCheck = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth * 0.05f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));*/
 
-	// CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
-									//   Width, Height, Depth
-
-	m_nObjects = 4 * (18 + 18 + 18);
+	m_nObjects = 18;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	for (int i = 0; i < m_nObjects / 4; ++i) {
-		m_ppObjects[0 + i * 4] = new CExplosiveObject();						// 기본 생성자
-		m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
-		m_ppObjects[0 + i * 4]->SetColor(RGB(0, 255, 0));						// 색상 결정
-
-		m_ppObjects[1 + i * 4] = new CExplosiveObject();
-		m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
-		m_ppObjects[1 + i * 4]->SetColor(RGB(0, 255, 100));
-
-		m_ppObjects[2 + i * 4] = new CExplosiveObject();
-		m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
-		m_ppObjects[2 + i * 4]->SetColor(RGB(0, 255, 100));
-
-		m_ppObjects[3 + i * 4] = new CExplosiveObject();
-		m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
-		m_ppObjects[3 + i * 4]->SetColor(RGB(0, 255, 100));
+	for (int i = 0; i < m_nObjects; ++i) {
+		m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+		m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));		// 박스의 크기 설정
+		m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
 	}
 
 	XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
-	for (int i = 0; i < 18; ++i) {
-		m_ppObjects[0 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[0 + i * 4]->Rotate(fy, 5.0f * i);
-		m_ppObjects[0 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
-
-		m_ppObjects[1 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[1 + i * 4]->Rotate(fy, 5.0f * i);
-		m_ppObjects[1 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
-
-		m_ppObjects[2 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[2 + i * 4]->Rotate(fy, 5.0f * i);
-		m_ppObjects[2 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
-
-		m_ppObjects[3 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[3 + i * 4]->Rotate(fy, 5.0f * i);
-		m_ppObjects[3 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
+	for (int i = 0; i < m_nObjects; ++i) {
+		m_ppObjects[0 + i]->Move(12.0f, 0.0f, 0.0f);
+		m_ppObjects[0 + i]->Rotate(fy, 5.0f * i);
+		m_ppObjects[0 + i]->Move(-12.0f, 0.0f, 0);
 	}
 
-	for (int i = 18; i < 18 * 2; ++i) {
+	//m_nObjects = 18 * 4;
+	//m_ppObjects = new CGameObject * [m_nObjects];
+
+	//for (int i = 0; i < m_nObjects / 4; ++i) {
+	//	m_ppObjects[0 + i * 4] = new CExplosiveObject();						// 기본 생성자
+	//	m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
+	//	m_ppObjects[0 + i * 4]->SetColor(RGB(0, 255, 0));						// 색상 결정
+
+	//	m_ppObjects[1 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
+	//	m_ppObjects[1 + i * 4]->SetColor(RGB(0, 255, 100));
+
+	//	m_ppObjects[2 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
+	//	m_ppObjects[2 + i * 4]->SetColor(RGB(0, 255, 100));
+
+	//	m_ppObjects[3 + i * 4] = new CExplosiveObject();
+	//	m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
+	//	m_ppObjects[3 + i * 4]->SetColor(RGB(0, 255, 100));
+	//}
+
+	//XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+	//for (int i = 0; i < 18; ++i) {
+	//	// left
+	//	m_ppObjects[0 + i * 4]->Move(12.0f, 0.0f, 0.0f);
+	//	m_ppObjects[0 + i * 4]->Rotate(fy, 5.0f * i);
+	//	m_ppObjects[0 + i * 4]->Move(-12.0f, 0.0f, 0);
+	//	m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
+	//	// rifht
+	//	m_ppObjects[1 + i * 4]->Move(12.0f, 0.0f, 0.0f);
+	//	m_ppObjects[1 + i * 4]->Rotate(fy, 5.0f * i);
+	//	m_ppObjects[1 + i * 4]->Move(-12.0f, 0.0f, 0);
+	//	m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
+	//	// back
+	//	m_ppObjects[2 + i * 4]->Move(12.0f, 0.0f, 0.0f);
+	//	m_ppObjects[2 + i * 4]->Rotate(fy, 5.0f * i);
+	//	m_ppObjects[2 + i * 4]->Move(-12.0f, 0.0f, 0);
+	//	m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
+	//	// forward
+	//	m_ppObjects[3 + i * 4]->Move(12.0f, 0.0f, 0.0f);
+	//	m_ppObjects[3 + i * 4]->Rotate(fy, 5.0f * i);
+	//	m_ppObjects[3 + i * 4]->Move(-12.0f, 0.0f, 0);
+	//	m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
+	//}
+
+	/*for (int i = 18; i < 18 * 2; ++i) {
 		m_ppObjects[0 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
 		m_ppObjects[0 + i * 4]->Rotate(fy, 90.0f);
 		m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
@@ -94,38 +97,7 @@ void CScene::BuildObjects()
 		m_ppObjects[3 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
 		m_ppObjects[3 + i * 4]->Rotate(fy, 90.0f);
 		m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
-	}
-
-	XMFLOAT3 fx = { -1.0f,0.0f, 0.0f };
-	for (int i = 36; i < 18 * 3; ++i) {
-		m_ppObjects[0 + i * 4]->Move(17.0f, 0.0f, 0.0f);
-		m_ppObjects[0 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[0 + i * 4]->Rotate(fx, 5.0f * i);
-		m_ppObjects[0 + i * 4]->Rotate(fy, -90.0f + 5.0f * i);
-		m_ppObjects[0 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
-
-		m_ppObjects[1 + i * 4]->Move(17.0f, 0.0f, 0.0f);
-		m_ppObjects[1 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[1 + i * 4]->Rotate(fx, 5.0f * i);
-		m_ppObjects[1 + i * 4]->Rotate(fy, -90.0f + 5.0f * i);
-		m_ppObjects[1 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
-
-		m_ppObjects[2 + i * 4]->Move(17.0f, 0.0f, 0.0f);
-		m_ppObjects[2 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[2 + i * 4]->Rotate(fx, 5.0f * i);
-		m_ppObjects[2 + i * 4]->Rotate(fy, -90.0f + 5.0f * i);
-		m_ppObjects[2 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
-
-		m_ppObjects[3 + i * 4]->Move(17.0f, 0.0f, 0);
-		m_ppObjects[3 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[3 + i * 4]->Rotate(fx, 5.0f * i);
-		m_ppObjects[3 + i * 4]->Rotate(fy, -90.0f + 5.0f * i);
-		m_ppObjects[3 + i * 4]->Move(-12.0f, 0.0f, 0);
-		m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
-	}
+	}*/
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();

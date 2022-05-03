@@ -57,6 +57,13 @@ public:
 	int CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance);
 };
 
+class CRailMesh : public CMesh
+{
+public:
+	CRailMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f);
+	virtual ~CRailMesh() { }
+};
+
 class CCubeMesh : public CMesh
 {
 public:

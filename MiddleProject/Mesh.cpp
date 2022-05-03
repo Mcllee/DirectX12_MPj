@@ -473,3 +473,149 @@ void CAxisMesh::Render(HDC hDCFrameBuffer)
 	::SelectObject(hDCFrameBuffer, hOldPen);
 	::DeleteObject(hPen);
 }
+
+CRailMesh::CRailMesh(float fWidth, float fHeight, float fDepth) : CMesh(16)	// 4개의 레일 부품(총 4 x 4 면)
+{
+	float fx = fWidth * 0.5, fy = fHeight * 0.5f, fz = fDepth * 0.5;
+	// (0,0,0)은 중심이 있기 때문에 0.5를 곱한다.
+
+	float x1 = 0.1f;	// 작은 사각형 너비
+	float y1 = 0.1f;	//
+	float z1 = 0.2f;	//
+
+	float rail_step = 0.1f;	// 위쪽 사각형의 간격
+
+	int i = 0;
+
+	//Right Part
+	// back (작은 정사각형)				-> 위 아래는 4면의 모양으로 알아서 갖춰진다.
+	CPolygon* pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex((fx - x1), -y1, -fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex((fx - x1), 0.0f, -fz));
+	pFace->SetVertex(2, CVertex(fx, 0.0f, -fz));
+	pFace->SetVertex(3, CVertex(fx, -y1, -fz));
+	SetPolygon(i++, pFace);
+
+	// forward (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex((fx - x1), -y1, fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(fx, -y1, fz));
+	pFace->SetVertex(2, CVertex(fx, 0.0f, fz));
+	pFace->SetVertex(3, CVertex((fx - x1), 0.0f, fz));
+	SetPolygon(i++, pFace);
+
+	// left (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex((fx - x1), -y1, fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex((fx - x1), 0.0f, fz));
+	pFace->SetVertex(2, CVertex((fx - x1), 0.0f, -fz));
+	pFace->SetVertex(3, CVertex((fx - x1), -y1, -fz));
+	SetPolygon(i++, pFace);
+
+	// right (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(fx, -y1, -fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(fx, 0.0f, -fz));
+	pFace->SetVertex(2, CVertex(fx, 0.0f, fz));
+	pFace->SetVertex(3, CVertex(fx, -y1, fz));
+	SetPolygon(i++, pFace);
+
+	//Left Part
+	// back (작은 정사각형)				-> 위 아래는 4면의 모양으로 알아서 갖춰진다.
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-(fx - x1), -y1, -fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-(fx - x1), 0.0f, -fz));
+	pFace->SetVertex(2, CVertex(-fx, 0.0f, -fz));
+	pFace->SetVertex(3, CVertex(-fx, -y1, -fz));
+	SetPolygon(i++, pFace);
+
+	// forward (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-(fx - x1), -y1, fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, -y1, fz));
+	pFace->SetVertex(2, CVertex(-fx, 0.0f, fz));
+	pFace->SetVertex(3, CVertex(-(fx - x1), 0.0f, fz));
+	SetPolygon(i++, pFace);
+
+	// left (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-(fx - x1), -y1, fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-(fx - x1), 0.0f, fz));
+	pFace->SetVertex(2, CVertex(-(fx - x1), 0.0f, -fz));
+	pFace->SetVertex(3, CVertex(-(fx - x1), -y1, -fz));
+	SetPolygon(i++, pFace);
+
+	// right (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-fx, -y1, -fz));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, 0.0f, -fz));
+	pFace->SetVertex(2, CVertex(-fx, 0.0f, fz));
+	pFace->SetVertex(3, CVertex(-fx, -y1, fz));
+	SetPolygon(i++, pFace);
+
+	//Back Part
+	// back (긴 직사각형)				-> 위 아래는 4면의 모양으로 알아서 갖춰진다.
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-fx, 0.0f, -fz + rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, y1, -fz + rail_step));
+	pFace->SetVertex(2, CVertex(fx, y1, -fz + rail_step));
+	pFace->SetVertex(3, CVertex(fx, 0.0f, -fz + rail_step));
+	SetPolygon(i++, pFace);
+
+	// forward (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(fx, 0.0f, (-fz + z1) + rail_step));
+	pFace->SetVertex(1, CVertex(fx, y1, (-fz + z1) + rail_step));
+	pFace->SetVertex(2, CVertex(-fx, y1, (-fz + z1) + rail_step));
+	pFace->SetVertex(3, CVertex(-fx, 0.0f, (-fz + z1) + rail_step));	// 좌하단 시작
+	SetPolygon(i++, pFace);
+
+	// left (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-fx, 0.0f, (-fz + z1) + rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, y1, (-fz + z1) + rail_step));
+	pFace->SetVertex(2, CVertex(-fx, y1, -fz + rail_step));
+	pFace->SetVertex(3, CVertex(-fx, 0.0f, -fz + rail_step));
+	SetPolygon(i++, pFace);
+
+	// right (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(fx, 0.0f, -fz + rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(fx, y1, -fz + rail_step));
+	pFace->SetVertex(2, CVertex(fx, y1, (-fz + z1) + rail_step));
+	pFace->SetVertex(3, CVertex(fx, 0.0f, (-fz + z1) + rail_step));
+	SetPolygon(i++, pFace);
+
+	//Forward Part
+	// back (긴 직사각형)				-> 위 아래는 4면의 모양으로 알아서 갖춰진다.
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-fx, 0.0f, (fz - z1) - rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, y1, (fz - z1) - rail_step));
+	pFace->SetVertex(2, CVertex(fx, y1, (fz - z1) - rail_step));
+	pFace->SetVertex(3, CVertex(fx, 0.0f, (fz - z1) - rail_step));
+	SetPolygon(i++, pFace);
+
+	// forward (긴 직사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(fx, 0.0f, fz - rail_step));
+	pFace->SetVertex(1, CVertex(fx, y1, fz - rail_step));
+	pFace->SetVertex(2, CVertex(-fx, y1, fz - rail_step));
+	pFace->SetVertex(3, CVertex(-fx, 0.0f, fz - rail_step));	// 좌하단 시작
+	SetPolygon(i++, pFace);
+
+	// left (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(-fx, 0.0f, fz - rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(-fx, y1, fz - rail_step));
+	pFace->SetVertex(2, CVertex(-fx, y1, (fz - z1) - rail_step));
+	pFace->SetVertex(3, CVertex(-fx, 0.0f, (fz - z1) - rail_step));
+	SetPolygon(i++, pFace);
+
+	// right (작은 정사각형)
+	pFace = new CPolygon(4);
+	pFace->SetVertex(0, CVertex(fx, 0.0f, (fz - z1) - rail_step));	// 좌하단 시작
+	pFace->SetVertex(1, CVertex(fx, y1, (fz - z1) - rail_step));
+	pFace->SetVertex(2, CVertex(fx, y1, fz - rail_step));
+	pFace->SetVertex(3, CVertex(fx, 0.0f, fz - rail_step));
+	SetPolygon(i++, pFace);
+}

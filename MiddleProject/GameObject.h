@@ -92,7 +92,7 @@ public:
 	float						m_fExplosionRotation = 720.0f;
 
 	virtual void Animate(float fElapsedTime);
-	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+	virtual void Render (HDC hDCFrameBuffer, CCamera* pCamera);
 
 public:
 	static CMesh*				m_pExplosionMesh;
