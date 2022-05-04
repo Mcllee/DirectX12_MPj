@@ -26,6 +26,11 @@ public:
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 
+	int rail_start_index = 0;
+	float degree = 0.0f;
+	XMFLOAT3 EndLocation = { 0.0f, 0.0f, 0.0f };
+	void RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosition);
+
 	void CheckObjectByObjectCollisions();
 	void CheckObjectByWallCollisions();
 	void CheckPlayerByWallCollision();

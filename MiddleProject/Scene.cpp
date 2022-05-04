@@ -20,84 +20,15 @@ void CScene::BuildObjects()
 
 	m_pWallsObject = new CWallsObject();
 
-	m_nObjects = 18;
+
+	m_nObjects = 15 + 18 + 15 + 15;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	for (int i = 0; i < m_nObjects; ++i) {
-		m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
-		m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));		// 박스의 크기 설정
-		m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
-	}
-
-	XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
-	for (int i = 0; i < m_nObjects; ++i) {
-		m_ppObjects[0 + i]->Move(12.0f, 0.0f, 0.0f);
-		m_ppObjects[0 + i]->Rotate(fy, 5.0f * i);
-		m_ppObjects[0 + i]->Move(-12.0f, 0.0f, 0);
-	}
-
-	//m_nObjects = 18 * 4;
-	//m_ppObjects = new CGameObject * [m_nObjects];
-
-	//for (int i = 0; i < m_nObjects / 4; ++i) {
-	//	m_ppObjects[0 + i * 4] = new CExplosiveObject();						// 기본 생성자
-	//	m_ppObjects[0 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
-	//	m_ppObjects[0 + i * 4]->SetColor(RGB(0, 255, 0));						// 색상 결정
-
-	//	m_ppObjects[1 + i * 4] = new CExplosiveObject();
-	//	m_ppObjects[1 + i * 4]->SetMesh(new CCubeMesh(0.1f, 0.1f, 1.0f));		// 박스의 크기 설정
-	//	m_ppObjects[1 + i * 4]->SetColor(RGB(0, 255, 100));
-
-	//	m_ppObjects[2 + i * 4] = new CExplosiveObject();
-	//	m_ppObjects[2 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
-	//	m_ppObjects[2 + i * 4]->SetColor(RGB(0, 255, 100));
-
-	//	m_ppObjects[3 + i * 4] = new CExplosiveObject();
-	//	m_ppObjects[3 + i * 4]->SetMesh(new CCubeMesh(0.8f, 0.2f, 0.1f));
-	//	m_ppObjects[3 + i * 4]->SetColor(RGB(0, 255, 100));
-	//}
-
-	//XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
-	//for (int i = 0; i < 18; ++i) {
-	//	// left
-	//	m_ppObjects[0 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-	//	m_ppObjects[0 + i * 4]->Rotate(fy, 5.0f * i);
-	//	m_ppObjects[0 + i * 4]->Move(-12.0f, 0.0f, 0);
-	//	m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
-	//	// rifht
-	//	m_ppObjects[1 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-	//	m_ppObjects[1 + i * 4]->Rotate(fy, 5.0f * i);
-	//	m_ppObjects[1 + i * 4]->Move(-12.0f, 0.0f, 0);
-	//	m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
-	//	// back
-	//	m_ppObjects[2 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-	//	m_ppObjects[2 + i * 4]->Rotate(fy, 5.0f * i);
-	//	m_ppObjects[2 + i * 4]->Move(-12.0f, 0.0f, 0);
-	//	m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
-	//	// forward
-	//	m_ppObjects[3 + i * 4]->Move(12.0f, 0.0f, 0.0f);
-	//	m_ppObjects[3 + i * 4]->Rotate(fy, 5.0f * i);
-	//	m_ppObjects[3 + i * 4]->Move(-12.0f, 0.0f, 0);
-	//	m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
-	//}
-
-	/*for (int i = 18; i < 18 * 2; ++i) {
-		m_ppObjects[0 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
-		m_ppObjects[0 + i * 4]->Rotate(fy, 90.0f);
-		m_ppObjects[0 + i * 4]->Move(-0.2f, 0.0f, 0);
-
-		m_ppObjects[1 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
-		m_ppObjects[1 + i * 4]->Rotate(fy, 90.0f);
-		m_ppObjects[1 + i * 4]->Move(0.2f, 0.0f, 0);
-
-		m_ppObjects[2 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
-		m_ppObjects[2 + i * 4]->Rotate(fy, 90.0f);
-		m_ppObjects[2 + i * 4]->Move(0.0f, 0.0f, -0.15f);
-
-		m_ppObjects[3 + i * 4]->Move(11.0f + 1.0f * (i - 17), 0.0f, 12.0f);
-		m_ppObjects[3 + i * 4]->Rotate(fy, 90.0f);
-		m_ppObjects[3 + i * 4]->Move(0.0f, 0.0f, 0.15f);
-	}*/
+	RailMaker("Straight", EndLocation, { EndLocation.x, EndLocation.y, EndLocation.z + 15.0f });
+	RailMaker("TurnRight", EndLocation, {});
+	RailMaker("UpStraight", EndLocation, { EndLocation.x + 15.0f, EndLocation.y, EndLocation.z });
+	RailMaker("ConvexityUpStraight", EndLocation, { EndLocation.x + 15.0f, EndLocation.y, EndLocation.z });
+	// RailMaker("TurnRight", EndLocation, {});
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();
@@ -118,6 +49,306 @@ void CScene::ReleaseObjects()
 #ifdef _WITH_DRAW_AXIS
 	if (m_pWorldAxis) delete m_pWorldAxis;
 #endif
+}
+
+// 레일 생성기
+void CScene::RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosition)
+{
+	if (ModelName == "TurnRight") {
+		for (int i = rail_start_index; i < rail_start_index + 18; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh());		// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
+
+			XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+			m_ppObjects[0 + i]->Move(StartPosition.x, StartPosition.y, StartPosition.z);
+
+			m_ppObjects[0 + i]->Move(12.0f, 0.0f, 0.0f);	// 반지름이 12인 원으로 회전
+			m_ppObjects[0 + i]->Rotate(fy, 5.0f * (i - rail_start_index) + degree);
+			m_ppObjects[0 + i]->Move(-12.0f, 0.0f, 0);
+		}
+
+		EndLocation = m_ppObjects[rail_start_index + 17]->GetPosition();
+		// EndLocation.x += 1;	// 다음 칸에서 시작할 수 있다.
+		 
+		rail_start_index += 18;
+	}
+	else if (ModelName == "TurnLeft") {
+		for (int i = rail_start_index; i < rail_start_index + 18; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh());		// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
+
+			XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+			m_ppObjects[0 + i]->Move(StartPosition.x, StartPosition.y, StartPosition.z);
+
+			m_ppObjects[0 + i]->Move(-12.0f, 0.0f, 0.0f);	// 반지름이 12인 원으로 회전
+			m_ppObjects[0 + i]->Rotate(fy, 5.0f * (i - rail_start_index));
+			m_ppObjects[0 + i]->Move(12.0f, 0.0f, 0.0f);
+		}
+
+		EndLocation = m_ppObjects[rail_start_index + 17]->GetPosition();
+		// EndLocation.z += 1;	// 다음 칸에서 시작한다.
+		
+		rail_start_index += 18;
+	}
+	else if (ModelName == "Straight") {
+		float fx = 0, fz = 0;
+		int length = 0;
+
+		if (StartPosition.x - EndPosition.x != 0) {
+			if (StartPosition.x - EndPosition.x < 0)
+				length = -(StartPosition.x - EndPosition.x);
+			else if (StartPosition.x - EndPosition.x > 0)
+				length = (StartPosition.x - EndPosition.x);
+			fx = 1;
+		}
+		else if (StartPosition.z - EndPosition.z != 0) {
+			if (StartPosition.z - EndPosition.z < 0)
+				length = -(StartPosition.z - EndPosition.z);
+			else if (StartPosition.z - EndPosition.z > 0)
+				length = (StartPosition.z - EndPosition.z);
+			fz = 1;
+		}
+
+		if(fz == 1)
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));		// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
+
+				XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+				m_ppObjects[0 + i]->Move(StartPosition.x + fx * (i - rail_start_index), StartPosition.y, StartPosition.z + fz * (i - rail_start_index));
+			}
+		else if(fx == 1) {
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+				XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+				m_ppObjects[0 + i]->Move(StartPosition.x + fx * (i - rail_start_index), StartPosition.y, StartPosition.z + fz * (i - rail_start_index));
+				m_ppObjects[0 + i]->Rotate(fy, 90.0f);
+			}
+		}
+
+		EndLocation = m_ppObjects[rail_start_index + length - 1]->GetPosition();
+		rail_start_index += length;
+	}
+	else if (ModelName == "UpStraight") {
+		float fx = 0, fz = 0;
+		int length = 0;
+
+		if (StartPosition.x - EndPosition.x != 0) {
+			if (StartPosition.x - EndPosition.x < 0)
+				length = -(StartPosition.x - EndPosition.x);
+			else if (StartPosition.x - EndPosition.x > 0)
+				length = (StartPosition.x - EndPosition.x);
+			fx = 1;
+		}
+		else if (StartPosition.z - EndPosition.z != 0) {
+			if (StartPosition.z - EndPosition.z < 0)
+				length = -(StartPosition.z - EndPosition.z);
+			else if (StartPosition.z - EndPosition.z > 0)
+				length = (StartPosition.z - EndPosition.z);
+			fz = 1;
+		}
+
+		if (fz == 1)
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+				XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+
+				m_ppObjects[0 + i]->Move(StartPosition.x, StartPosition.y + (i - rail_start_index) / length, StartPosition.z);
+
+				m_ppObjects[0 + i]->Move(0.0f, 12.0f, 0.0f);	// 반지름이 12인 원으로 회전
+				m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+				m_ppObjects[0 + i]->Move(0.0f, -12.0f, 0.0f);
+			}
+		else if (fx == 1) {
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+				XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+				XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+				
+				m_ppObjects[0 + i]->Move(StartPosition.x, StartPosition.y + (i - rail_start_index) / length, StartPosition.z + fz * (i - rail_start_index));
+				
+				m_ppObjects[0 + i]->Rotate(fy, 90.0f);
+
+				m_ppObjects[0 + i]->Move(0.0f, 12.0f, 0.0f);	// 반지름이 12인 원으로 회전
+				m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+				m_ppObjects[0 + i]->Move(0.0f, -12.0f, 0.0f);
+			}
+		}
+
+		EndLocation = m_ppObjects[rail_start_index + length - 1]->GetPosition();
+		rail_start_index += length;
+	}
+	else if (ModelName == "ConvexityUpStraight") {
+	float fx = 0, fz = 0;
+	int length = 0;
+
+	if (StartPosition.x - EndPosition.x != 0) {
+		if (StartPosition.x - EndPosition.x < 0)
+			length = EndPosition.x - StartPosition.x + 1;
+		else if (StartPosition.x - EndPosition.x > 0)
+			length = (StartPosition.x - EndPosition.x);
+		fx = 1;
+	}
+	else if (StartPosition.z - EndPosition.z != 0) {
+		if (StartPosition.z - EndPosition.z < 0)
+			length = -(StartPosition.z - EndPosition.z);
+		else if (StartPosition.z - EndPosition.z > 0)
+			length = (StartPosition.z - EndPosition.z);
+		fz = 1;
+	}
+	// length = 15;
+	if (fz == 1) {
+		for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+			XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+
+			m_ppObjects[0 + i]->Move(StartPosition.x , StartPosition.y + (i - rail_start_index) / length + 8.9f, StartPosition.z + 11.6f);
+
+			m_ppObjects[0 + i]->Move(0.0f, -12.0f, 0.0f);	// 반지름이 12인 원으로 회전
+			m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+			m_ppObjects[0 + i]->Move(0.0f, 12.0f, 0.0f);
+		}
+	}
+	else if (fx == 1) {
+		for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+			XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+			XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+
+			m_ppObjects[0 + i]->Move(StartPosition.x + 11.6f, StartPosition.y + (i - rail_start_index) / length + 8.9f, StartPosition.z + fz * (i - rail_start_index));
+
+			m_ppObjects[0 + i]->Rotate(fy, 90.0f);
+
+			m_ppObjects[0 + i]->Move(0.0f, -12.0f, 0.0f);	// 반지름이 12인 원으로 회전
+			m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+			m_ppObjects[0 + i]->Move(0.0f, 12.0f, 0.0f);
+		}
+	}
+
+	EndLocation = m_ppObjects[rail_start_index + length - 1]->GetPosition();
+	rail_start_index += length;
+	}
+	// 수정 필요 -> 상수값 너무 많음
+	else if (ModelName == "DownStraight") {
+		float fx = 0, fz = 0;
+		int length = 0;
+
+		if (StartPosition.x - EndPosition.x != 0) {
+			if (StartPosition.x - EndPosition.x < 0)
+				length = -(StartPosition.x - EndPosition.x);
+			else if (StartPosition.x - EndPosition.x > 0)
+				length = (StartPosition.x - EndPosition.x);
+			fx = 1;
+		}
+		else if (StartPosition.z - EndPosition.z != 0) {
+			if (StartPosition.z - EndPosition.z < 0)
+				length = -(StartPosition.z - EndPosition.z);
+			else if (StartPosition.z - EndPosition.z > 0)
+				length = (StartPosition.z - EndPosition.z);
+			fz = 1;
+		}
+
+		if (fz == 1)
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));		// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
+
+				XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+				m_ppObjects[0 + i]->Move(StartPosition.x + fx * (i - rail_start_index), StartPosition.y, StartPosition.z);
+				m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+			}
+		else if (fx == 1) {
+			for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+				m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+				m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+				m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+				XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+				XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+
+				m_ppObjects[0 + i]->Move(StartPosition.x - 0.5f, StartPosition.y + (i - rail_start_index) / length + 3.5f, StartPosition.z + fz * (i - rail_start_index));
+
+				m_ppObjects[0 + i]->Rotate(fy, 90.0f);
+
+				m_ppObjects[0 + i]->Move(0.0f, 0.0f, 12.0f);	// 반지름이 12인 원으로 회전
+				m_ppObjects[0 + i]->Rotate(zdegree, -5.0f * (i - rail_start_index));
+				m_ppObjects[0 + i]->Move(0.0f, -12.0f, 0.0f);
+			}
+		}
+
+		EndLocation = m_ppObjects[rail_start_index + length - 1]->GetPosition();
+		rail_start_index += length;
+	}
+	else if (ModelName == "ConvexityDownStraight") {
+	float fx = 0, fz = 0;
+	int length = 0;
+
+	if (StartPosition.x - EndPosition.x != 0) {
+		if (StartPosition.x - EndPosition.x < 0)
+			length = -(StartPosition.x - EndPosition.x);
+		else if (StartPosition.x - EndPosition.x > 0)
+			length = (StartPosition.x - EndPosition.x);
+		fx = 1;
+	}
+	else if (StartPosition.z - EndPosition.z != 0) {
+		if (StartPosition.z - EndPosition.z < 0)
+			length = -(StartPosition.z - EndPosition.z);
+		else if (StartPosition.z - EndPosition.z > 0)
+			length = (StartPosition.z - EndPosition.z);
+		fz = 1;
+	}
+
+	if (fz == 1)
+		for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();		// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));		// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));		// 색상 결정
+
+			XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+			m_ppObjects[0 + i]->Move(StartPosition.x + fx * (i - rail_start_index), StartPosition.y, StartPosition.z + fz * (i - rail_start_index));
+			m_ppObjects[0 + i]->Rotate(zdegree, 5.0f * (i - rail_start_index));
+		}
+	else if (fx == 1) {
+		for (int i = rail_start_index; i < rail_start_index + length; ++i) {
+			m_ppObjects[0 + i] = new CExplosiveObject();					// 기본 생성자
+			m_ppObjects[0 + i]->SetMesh(new CRailMesh(1.0f, 1.0f, 1.0f));	// 박스의 크기 설정
+			m_ppObjects[0 + i]->SetColor(RGB(0, 255, 0));					// 색상 결정
+
+			XMFLOAT3 fy = { 0.0f, 1.0f, 0.0f };
+			XMFLOAT3 zdegree = { -1.0f, 0.0f, 0.0f };
+
+			m_ppObjects[0 + i]->Move(StartPosition.x, StartPosition.y - (i - rail_start_index) / length, StartPosition.z + fz * (i - rail_start_index));
+
+			m_ppObjects[0 + i]->Rotate(fy, 90.0f);
+
+			m_ppObjects[0 + i]->Move(0.0f, -10.0f, 0.0f);	// 반지름이 12인 원으로 회전
+			m_ppObjects[0 + i]->Rotate(zdegree, -5.0f * (i - rail_start_index));
+			m_ppObjects[0 + i]->Move(0.0f, 10.0f, 0.0f);
+		}
+	}
+
+	EndLocation = m_ppObjects[rail_start_index + length - 1]->GetPosition();
+	rail_start_index += length;
+	}
 }
 
 void CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
