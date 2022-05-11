@@ -32,6 +32,8 @@ private:
 
 	_TCHAR						m_pszFrameRate[50];
 
+	bool						stop = false;		// 움직임을 멈추는 변수(위험하므로 private)
+
 public:
 	void OnCreate(HINSTANCE hInstance, HWND hMainWnd);
 	void OnDestroy();

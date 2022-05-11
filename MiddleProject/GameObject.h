@@ -27,6 +27,12 @@ public:
 	XMFLOAT3					m_xmf3RotationAxis = XMFLOAT3(0.0f, 1.0f, 0.0f);
 	float						m_fRotationSpeed = 0.0f;
 
+	float x_degree = 0;
+	float y_degree = 0;
+	float z_degree = 0;
+
+	XMFLOAT4X4					Rotation;
+
 public:
 	void SetActive(bool bActive) { m_bActive = bActive; }
 	void SetMesh(CMesh *pMesh) { m_pMesh = pMesh; if (pMesh) pMesh->AddRef(); }
@@ -37,6 +43,7 @@ public:
 
 	void SetPosition(float x, float y, float z);
 	void SetPosition(XMFLOAT3& xmf3Position);
+	void SetRotation(XMFLOAT3& xmf3Rotation);
 
 	void SetMovingDirection(XMFLOAT3& xmf3MovingDirection) { m_xmf3MovingDirection = Vector3::Normalize(xmf3MovingDirection); }
 	void SetMovingSpeed(float fSpeed) { m_fMovingSpeed = fSpeed; }

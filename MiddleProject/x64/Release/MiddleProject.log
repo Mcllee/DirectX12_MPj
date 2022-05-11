@@ -1,27 +1,11 @@
 ﻿  Scene.cpp
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(101,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(103,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(108,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(110,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(144,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(146,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(151,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(153,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(199,45): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(201,30): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(206,13): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(208,30): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(256,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(258,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(263,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(265,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(307,13): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(309,30): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(314,13): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(316,30): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(158,27): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(162,29): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(168,27): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\leemc\source\repos\DirectX12_MPj\MiddleProject\Scene.cpp(172,29): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  0 of 312 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  1 of 270 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   MiddleProject.vcxproj -> C:\Users\leemc\source\repos\DirectX12_MPj\x64\Release\MiddleProject.exe

@@ -41,6 +41,13 @@ void CGameObject::SetPosition(XMFLOAT3& xmf3Position)
 	m_xmf4x4World._43 = xmf3Position.z;
 }
 
+void CGameObject::SetRotation(XMFLOAT3& xmf3Rotation)
+{
+	m_xmf4x4World._11 = xmf3Rotation.x;
+	m_xmf4x4World._22 = xmf3Rotation.y;
+	m_xmf4x4World._33 = xmf3Rotation.z;
+}
+
 XMFLOAT3 CGameObject::GetPosition()
 {
 	return(XMFLOAT3(m_xmf4x4World._41, m_xmf4x4World._42, m_xmf4x4World._43));
@@ -162,10 +169,6 @@ void CGameObject::UpdateBoundingBox()
 
 void CGameObject::Animate(float fElapsedTime)
 {
-	if (m_fRotationSpeed != 0.0f) Rotate(m_xmf3RotationAxis, m_fRotationSpeed * fElapsedTime);
-	if (m_fMovingSpeed != 0.0f) Move(m_xmf3MovingDirection, m_fMovingSpeed * fElapsedTime);
-
-	UpdateBoundingBox();
 }
 
 void CGameObject::Render(HDC hDCFrameBuffer, XMFLOAT4X4* pxmf4x4World, CMesh* pMesh)
@@ -363,7 +366,7 @@ void CBulletObject::Animate(float fElapsedTime)
 	m_fMovingDistance += fDistance;
 #endif
 
-	UpdateBoundingBox();
+	// UpdateBoundingBox();
 
 	if ((m_fMovingDistance > m_fBulletEffectiveRange) || (m_fElapsedTimeAfterFire > m_fLockingTime)) Reset();
 }

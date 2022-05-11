@@ -112,8 +112,6 @@ void CPlayer::Update(float fTimeElapsed)
 void CPlayer::Animate(float fElapsedTime)
 {
 	OnUpdateTransform();
-
-	CGameObject::Animate(fElapsedTime);
 }
 
 void CPlayer::OnUpdateTransform()

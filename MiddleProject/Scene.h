@@ -4,6 +4,8 @@
 #include "Camera.h"
 #include "Player.h"
 
+#include <vector>
+
 class CScene
 {
 public:
@@ -29,19 +31,27 @@ public:
 	int rail_start_index = 0;
 	float degree = 0.0f;
 	XMFLOAT3 EndLocation = { 0.0f, 0.0f, 0.0f };
-	void RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosition);
+	void RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosition, int time);
 
-	void CheckObjectByObjectCollisions();
-	void CheckObjectByWallCollisions();
-	void CheckPlayerByWallCollision();
-	void CheckObjectByBulletCollisions();
+	static int rail_shape;
+	static int print_time;
+	XMFLOAT3 vPosition;
+	XMFLOAT3 at;
+	XMFLOAT3 up = { 0.0f, 1.0f, 0.0f };
+
+	static int camera_number;
+	
+	float X_Degree;
+	float Y_Degree;
+	float Z_Degree;
+
+	XMFLOAT4X4 rotation_X;
+	XMFLOAT4X4 rotation_Y;
+	XMFLOAT4X4 rotation_Z;
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 
 	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
-
-	CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
 };
-

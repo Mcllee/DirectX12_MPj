@@ -55,7 +55,7 @@ void CCamera::SetLookAt(XMFLOAT3& xmf3Position, XMFLOAT3& xmf3LookAt, XMFLOAT3& 
 
 void CCamera::SetLookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up)
 {
-	XMFLOAT4X4 xmf4x4View = Matrix4x4::LookAtLH(m_xmf3Position, xmf3LookAt, xmf3Up);
+	// XMFLOAT4X4 xmf4x4View = Matrix4x4::LookAtLH(m_xmf3Position, xmf3LookAt, xmf3Up);
 	//m_xmf3Right = Vector3::Normalize(XMFLOAT3(xmf4x4View._11, xmf4x4View._21, xmf4x4View._31));
 	//m_xmf3Up = Vector3::Normalize(XMFLOAT3(xmf4x4View._12, xmf4x4View._22, xmf4x4View._32));
 	//m_xmf3Look = Vector3::Normalize(XMFLOAT3(xmf4x4View._13, xmf4x4View._23, xmf4x4View._33));
@@ -63,7 +63,7 @@ void CCamera::SetLookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up)
 
 void CCamera::SetViewport(int nLeft, int nTop, int nWidth, int nHeight)
 {
-	m_Viewport.SetViewport(nLeft, nTop, nWidth, nHeight);
+	m_Viewport.SetViewport(nLeft, nTop, nWidth, nHeight);						// 출력화면 위치(좌상단 점기준 가로/세로)
 	m_fAspectRatio = float(m_Viewport.m_nWidth) / float(m_Viewport.m_nHeight);
 }
 
@@ -140,11 +140,14 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 
 	float fTimeLagScale = fTimeElapsed * (1.0f / 0.25f);
 	float fDistance = fLength * fTimeLagScale;
+
 	if (fDistance > fLength) fDistance = fLength;
 	if (fLength < 0.01f) fDistance = fLength;
-	if (fDistance > 0)
+	
+	
+	/*if (fDistance > 0)
 	{
 		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Direction, fDistance);
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
-	}
+	}*/
 }

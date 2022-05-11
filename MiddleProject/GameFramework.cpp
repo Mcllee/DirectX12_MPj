@@ -16,7 +16,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildObjects();
 
-	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
+	_tcscpy_s(m_pszFrameRate, _T("Roller Coaster Simulator ("));
 }
 
 void CGameFramework::OnDestroy()
@@ -64,24 +64,16 @@ void CGameFramework::PresentFrameBuffer()
 void CGameFramework::BuildObjects()
 {
 	CCamera* pCamera = new CCamera();
-	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-	pCamera->GeneratePerspectiveProjectionMatrix(0.0f, 500.0f, 60.0f);
-	pCamera->SetFOVAngle(60.0f);
+	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);	// 화면 출력 크기
+	pCamera->GeneratePerspectiveProjectionMatrix(0.0f, 100.0f, 60.0f);	// 카메라 옵션 설정
+	// pCamera->SetFOVAngle(60.0f);
 
-	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-
-	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
+	// pCamera->GenerateOrthographicProjectionMatrix(0.0f, 100.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
 	m_pPlayer = new CAirplanePlayer();
-	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-
-
-	// 카메라만 사용할 것이므로 주인공 메쉬는 주석처리 한다. -> 롤러코스터에서 필요시 사용
-	/*m_pPlayer->SetMesh(pAirplaneMesh);
-	m_pPlayer->SetColor(RGB(0, 0, 0));*/
 	
-	m_pPlayer->SetCamera(pCamera);
-	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
+	m_pPlayer->SetCamera(pCamera);	// 카메라 선택
+	// m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 10.0f, -10.0f));
 
 	m_pScene = new CScene(m_pPlayer);
 	m_pScene->BuildObjects();
@@ -100,36 +92,31 @@ void CGameFramework::ReleaseObjects()
 
 void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
-	// return;
+	//// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
+	//// return;
 
-	if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
+	//if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
 
-	switch (nMessageID)
-	{
-	case WM_RBUTTONDOWN:
-	case WM_LBUTTONDOWN:
-		::SetCapture(hWnd);
-		::GetCursorPos(&m_ptOldCursorPos);
-
-		// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
-		// if (nMessageID == WM_RBUTTONDOWN) m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
-		break;
-	case WM_LBUTTONUP:
-	case WM_RBUTTONUP:
-		::ReleaseCapture();
-		break;
-	case WM_MOUSEMOVE:
-		break;
-	default:
-		break;
-	}
+	//switch (nMessageID)
+	//{
+	//case WM_RBUTTONDOWN:
+	//case WM_LBUTTONDOWN:
+	//	::SetCapture(hWnd);
+	//	::GetCursorPos(&m_ptOldCursorPos);
+	//	break;
+	//case WM_LBUTTONUP:
+	//case WM_RBUTTONUP:
+	//	::ReleaseCapture();
+	//	break;
+	//case WM_MOUSEMOVE:
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	// 카메라 이동
-	// return;
 
 	if (m_pScene) m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 
@@ -138,10 +125,38 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
-		case VK_ESCAPE:
-			::PostQuitMessage(0);	// 프로그램 종료 메시지 전달
+		case VK_SPACE:
+			if (stop) stop = false;
+			else stop = true;
+			break;
+		case 's':
+		case 'S':						// 위치 초기화 명령
+			if(CScene::rail_shape == 1)
+				CScene::print_time = 0;
+			else if (CScene::rail_shape == 2)
+				CScene::print_time = 266;
+			else if (CScene::rail_shape == 3)
+				CScene::print_time = 377;
+			break;
+		case '1':
+			CScene::print_time = 0;
+			CScene::rail_shape = 1;
+			break;
+		case '2':
+			CScene::print_time = 266;
+			CScene::rail_shape = 2;
+			break;
+		case '3':
+			CScene::print_time = 377;
+			CScene::rail_shape = 3;
 			break;
 		case VK_RETURN:
+			++CScene::camera_number;
+			if(CScene::camera_number > 4)
+				CScene::camera_number = 1;
+			break;
+		case VK_ESCAPE:
+			::PostQuitMessage(0);	// 프로그램 종료 메시지 전달
 			break;
 		default:
 			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
@@ -167,35 +182,11 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 	}
 	case WM_SIZE:
 		break;
-	case WM_LBUTTONDOWN:
-	case WM_RBUTTONDOWN:
-	case WM_LBUTTONUP:
-	case WM_RBUTTONUP:
-	case WM_MOUSEMOVE:
-		OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
-		break;
 	case WM_KEYDOWN:
 	case WM_KEYUP:
 		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 		break;
 	}
-
-	/*
-	case WM_SIZE:
-		break;
-	case WM_LBUTTONDOWN:
-	case WM_RBUTTONDOWN:
-	case WM_LBUTTONUP:
-	case WM_RBUTTONUP:
-	case WM_MOUSEMOVE:
-		OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
-		break;
-	case WM_KEYDOWN:
-	case WM_KEYUP:
-		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
-		break;
-	}
-	*/
 
 	return(0);
 }
@@ -205,18 +196,6 @@ void CGameFramework::ProcessInput()
 	// 키 입력 받기
 
 	static UCHAR pKeyBuffer[256];
-	if (GetKeyboardState(pKeyBuffer))
-	{
-		DWORD dwDirection = 0;
-		if (pKeyBuffer['W'] & 0xF0) dwDirection |= DIR_FORWARD;
-		if (pKeyBuffer['S'] & 0xF0) dwDirection |= DIR_BACKWARD;
-		if (pKeyBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
-		if (pKeyBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
-		if (pKeyBuffer['E'] & 0xF0) dwDirection |= DIR_UP;
-		if (pKeyBuffer['Q'] & 0xF0) dwDirection |= DIR_DOWN;
-
-		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
-	}
 
 	if (GetCapture() == m_hWnd)
 	{
@@ -241,7 +220,7 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
-	if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
+	// if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 }
 
@@ -251,16 +230,17 @@ void CGameFramework::FrameAdvance()
 
 	ProcessInput();
 
-	AnimateObjects();
+	if(!stop)
+		AnimateObjects();
 
-    ClearFrameBuffer(RGB(255, 255, 255));
+    ClearFrameBuffer(RGB(50, 50, 50));
 
 	CCamera* pCamera = m_pPlayer->GetCamera();
 	if (m_pScene) m_pScene->Render(m_hDCFrameBuffer, pCamera);
 
 	PresentFrameBuffer();
 
-	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
+	m_GameTimer.GetFrameRate(m_pszFrameRate + 26, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);
 }
 
