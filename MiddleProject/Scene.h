@@ -41,9 +41,9 @@ public:
 
 	static int camera_number;
 	
-	float X_Degree;
-	float Y_Degree;
-	float Z_Degree;
+	float X_Radian;
+	float Y_Radian;
+	float Z_Radian;
 
 	XMFLOAT4X4 rotation_X;
 	XMFLOAT4X4 rotation_Y;
@@ -51,7 +51,4 @@ public:
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-
-	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
-	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 };

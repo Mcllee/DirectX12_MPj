@@ -476,7 +476,7 @@ void CAxisMesh::Render(HDC hDCFrameBuffer)
 
 CRailMesh::CRailMesh(float fWidth, float fHeight, float fDepth) : CMesh(16)	// 4개의 레일 부품(총 4 x 4 면)
 {
-	float fx = fWidth * 0.5, fy = fHeight * 0.5f, fz = fDepth * 0.5;
+	float fx = float(fWidth * 0.5), fy = float(fHeight * 0.5f), fz = float(fDepth * 0.5);
 	// (0,0,0)은 중심이 있기 때문에 0.5를 곱한다.
 
 	float x1 = 0.1f;	// 작은 사각형 너비

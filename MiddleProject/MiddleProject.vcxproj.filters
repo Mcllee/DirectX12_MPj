@@ -85,16 +85,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="roller-coaster-icon.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="roller-coaster.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
     <ResourceCompile Include="MiddleProject.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="MiddleProject.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
   </ItemGroup>
 </Project>

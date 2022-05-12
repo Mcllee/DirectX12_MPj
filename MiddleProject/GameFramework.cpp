@@ -90,36 +90,8 @@ void CGameFramework::ReleaseObjects()
 	if (m_pPlayer) delete m_pPlayer;
 }
 
-void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-{
-	//// 이 함수는 마우스가 눌렸을 경우 화면의 이동을 다루므로 필요가 없다.
-	//// return;
-
-	//if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
-
-	//switch (nMessageID)
-	//{
-	//case WM_RBUTTONDOWN:
-	//case WM_LBUTTONDOWN:
-	//	::SetCapture(hWnd);
-	//	::GetCursorPos(&m_ptOldCursorPos);
-	//	break;
-	//case WM_LBUTTONUP:
-	//case WM_RBUTTONUP:
-	//	::ReleaseCapture();
-	//	break;
-	//case WM_MOUSEMOVE:
-	//	break;
-	//default:
-	//	break;
-	//}
-}
-
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-
-	if (m_pScene) m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
-
 	switch (nMessageID)
 	{
 	case WM_KEYDOWN:
@@ -157,9 +129,6 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			break;
 		case VK_ESCAPE:
 			::PostQuitMessage(0);	// 프로그램 종료 메시지 전달
-			break;
-		default:
-			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 			break;
 		}
 		break;

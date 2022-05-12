@@ -93,27 +93,27 @@ void CScene::BuildObjects()
 
 	//===========================	회		전		각		입		력	============================
 	for (int i = 0; i < m_nObjects - 3; ++i) {
-		X_Degree = DegreeToRadian(m_ppObjects[i]->x_degree);
-		Y_Degree = DegreeToRadian(m_ppObjects[i]->y_degree);
-		Z_Degree = DegreeToRadian(m_ppObjects[i]->z_degree);
+		X_Radian = DegreeToRadian(m_ppObjects[i]->x_degree);
+		Y_Radian = DegreeToRadian(m_ppObjects[i]->y_degree);
+		Z_Radian = DegreeToRadian(m_ppObjects[i]->z_degree);
 
 		rotation_X = {
 			1,		0,						0,						0,
-			0,		(float)cos(X_Degree),	(float)sin(X_Degree),	0,
-			0,		(float)-sin(X_Degree),	(float)cos(X_Degree),	0,
+			0,		(float)cos(X_Radian),	(float)sin(X_Radian),	0,
+			0,		(float)-sin(X_Radian),	(float)cos(X_Radian),	0,
 			0,		0,						0,						1
 		};
 
 		rotation_Y = {
-			(float)cos(Y_Degree),	0,		(float)-sin(Y_Degree),	0,
+			(float)cos(Y_Radian),	0,		(float)-sin(Y_Radian),	0,
 			0,						1,		0,						0,
-			(float)sin(Y_Degree),	0,		(float)cos(Y_Degree),	0,
+			(float)sin(Y_Radian),	0,		(float)cos(Y_Radian),	0,
 			0,						0,		0,						1
 		};
 
 		rotation_Z = {
-			(float)cos(Z_Degree),	(float)sin(Z_Degree),	0,	0,
-			(float)-sin(Z_Degree),	(float)cos(Z_Degree),	0,	0,
+			(float)cos(Z_Radian),	(float)sin(Z_Radian),	0,	0,
+			(float)-sin(Z_Radian),	(float)cos(Z_Radian),	0,	0,
 			0,						0,						1,	0,
 			0,						0,						0,	1
 		};
@@ -149,27 +149,27 @@ void CScene::ReleaseObjects()
 // 레일 위치 생성기
 void CScene::RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosition, int time)
 {
-	float fx = 0, fz = 0;	// 레일의 회전/이동 단위
+	float fx = 0, fz = 0;	// 레일의 회전/이동 방향
 	int length = 0;			// 레일의 총 개수(= 길이)
 
 	// 레일 생성의 방향 (카트의 이동방향)
 	if (StartPosition.x - EndPosition.x != 0) {
 		if (StartPosition.x - EndPosition.x < 0) {
-			length = EndPosition.x - StartPosition.x;
+			length = int(EndPosition.x - StartPosition.x);
 			fx = -1;
 		}
 		else if (StartPosition.x - EndPosition.x > 0) {
-			length = StartPosition.x - EndPosition.x;
+			length = int(StartPosition.x - EndPosition.x);
 			fx = 1;
 		}
 	}
 	else if (StartPosition.z - EndPosition.z != 0) {
 		if (StartPosition.z - EndPosition.z < 0) {
-			length = EndPosition.z - StartPosition.z;
+			length = int(EndPosition.z - StartPosition.z);
 			fz = 1;
 		}
 		else if (StartPosition.z - EndPosition.z > 0) {
-			length = StartPosition.z - EndPosition.z;
+			length = int(StartPosition.z - EndPosition.z);
 			fz = -1;
 		}
 
@@ -426,46 +426,6 @@ void CScene::RailMaker(char* ModelName, XMFLOAT3 StartPosition, XMFLOAT3 EndPosi
 	}
 }
 
-void CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-{
-}
-
-void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-{
-	//// 사각형 객체를 터뜨리는 역할을 하므로 필요가 없다.
-	//// return;
-
-	//switch (nMessageID)
-	//{
-	//case WM_KEYDOWN:
-	//	switch (wParam)
-	//	{
-	//	case '1':
-	//	case '2':
-	//	case '3':
-	//	case '4':
-	//	case '5':
-	//	case '6':
-	//	case '7':
-	//	case '8':
-	//	case '9':
-	//	{
-	//		CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_ppObjects[int(wParam - '1')];
-	//		pExplosiveObject->m_bBlowingUp = true;
-	//		break;
-	//	}
-	//	case 'F':
-	//		++print_time;
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//	break;
-	//default:
-	//	break;
-	//}
-}
-
 int CScene::print_time = 0;		// 카트 이동에서 사용
 int CScene::rail_shape = 1;		// 레일의 모양 선택
 int CScene::camera_number = 1;	// 카메라 위치 선택
@@ -479,7 +439,7 @@ void CScene::Animate(float fElapsedTime)
 		print_time = 0;
 	else if (rail_shape == 2 && print_time == 377)
 		print_time = 266;
-	else if (rail_shape == 3 && print_time == 570)
+	else if (rail_shape == 3 && print_time == 569)
 		print_time = 377;
 
 	m_ppObjects[m_nObjects - 1]->SetPosition(	m_ppObjects[print_time]->GetPosition().x,
@@ -495,13 +455,14 @@ void CScene::Animate(float fElapsedTime)
 
 void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
-	Y_Degree = DegreeToRadian(m_ppObjects[print_time]->y_degree);
+	Y_Radian = DegreeToRadian(m_ppObjects[print_time]->y_degree);
 	at = { m_ppObjects[m_nObjects - 1]->GetPosition() };
 
 	if (camera_number == 1) {
-		vPosition = {	m_ppObjects[m_nObjects - 1]->GetPosition().x - 12.0f * (float)(sin(Y_Degree)),
+		vPosition = {	m_ppObjects[m_nObjects - 1]->GetPosition().x - 12.0f * (float)(sin(Y_Radian)),
 						m_ppObjects[m_nObjects - 1]->GetPosition().y + 3.0f,
-						m_ppObjects[m_nObjects - 1]->GetPosition().z - 12.0f * (float)(cos(Y_Degree)) };
+						m_ppObjects[m_nObjects - 1]->GetPosition().z - 12.0f * (float)(cos(Y_Radian)) };
+		at = { m_ppObjects[m_nObjects - 1]->GetPosition() };		
 		up = { 0.0f, 1.0f, 0.0f };
 	}
 	else if (camera_number == 2) {
@@ -525,13 +486,17 @@ void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGraphicsPipeline::SetViewport(&pCamera->m_Viewport);
 	CGraphicsPipeline::SetViewPerspectiveProjectTransform(&pCamera->m_xmf4x4ViewPerspectiveProject);
 
+	// 1번 트랙 출력
 	if (rail_shape == 1)
 		for (int i = 0; i < 266; ++i) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
+	// 2번 트랙 출력
 	else if(rail_shape == 2)
 		for (int i = 266; i < 377; ++i) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
+	// 3번 트랙 출력
 	else if (rail_shape == 3)
 		for (int i = 377; i < 570; ++i) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
+	// 탑승 플랫폼, 1번 열차, 2번 열차를 출력
 	for (int i = 570; i < m_nObjects; ++i) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
 //UI
